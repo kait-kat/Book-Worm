@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const db = require('./server/config/connection');
-const routes = require('./Book-Worm/develop/server/routes');
+const routes = require('./server/routes');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
