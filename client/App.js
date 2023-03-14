@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import SearchBooks from './pages/SearchBooks';
-import SavedBooks from './pages/SavedBooks';
+import SearchBooks from './pages/SearchBooks.js';
+import SavedBooks from './pages/SavedBooks.js';
 import Navbar from './components/Navbar';
 
 function App() {
