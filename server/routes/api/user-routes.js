@@ -6,7 +6,7 @@ const {
   deleteBook,
   login,
 } = require('../../controllers/user-controller');
-const { authMiddleware } = require('../../utils/auth');
+const { authMiddleware } = require('../../utils/auth.js');
 
 router.route('/').post(createUser).put(authMiddleware, saveBook);
 

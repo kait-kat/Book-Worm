@@ -1,4 +1,4 @@
-export const getMe = (token) => {
+const getMe = (token) => {
     return fetch('/api/users/me', {
       headers: {
         'Content-Type': 'application/json',
@@ -7,7 +7,7 @@ export const getMe = (token) => {
     });
   };
   
-  export const createUser = (userData) => {
+  const createUser = (userData) => {
     return fetch('/api/users', {
       method: 'POST',
       headers: {
@@ -17,7 +17,7 @@ export const getMe = (token) => {
     });
   };
   
-  export const loginUser = (userData) => {
+  const loginUser = (userData) => {
     return fetch('/api/users/login', {
       method: 'POST',
       headers: {
@@ -28,7 +28,7 @@ export const getMe = (token) => {
   };
   
 
-  export const saveBook = (bookData, token) => {
+  const saveBook = (bookData, token) => {
     return fetch('/api/users', {
       method: 'PUT',
       headers: {
@@ -40,7 +40,7 @@ export const getMe = (token) => {
   };
   
 
-  export const deleteBook = (bookId, token) => {
+  const deleteBook = (bookId, token) => {
     return fetch(`/api/users/books/${bookId}`, {
       method: 'DELETE',
       headers: {
@@ -50,6 +50,8 @@ export const getMe = (token) => {
   };
   
 
-  export const searchGoogleBooks = (query) => {
+  const searchGoogleBooks = (query) => {
     return fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}`);
   };  
+
+  module.exports = { getMe, createUser, loginUser, saveBook, deleteBook, searchGoogleBooks };
