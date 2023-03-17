@@ -1,41 +1,40 @@
 /* eslint-disable import/no-anonymous-default-export */
 import decode from 'jwt-decode';
-class Auth {
+class AuthService {
   getProfile() {
-    return decode(this.getToken());
+    return decode(this.getToken())
   }
 
-
   loggedIn() {
-    const token = this.getToken();
-    return !!token && !this.isTokenExpired(token); 
+    const token = this.getToken()
+    return !!token && !this.isTokenExpired(token) 
   }
 
 
   isTokenExpired(token) {
     try {
-      const decoded = decode(token);
+      const decoded = decode(token)
       if (decoded.exp < Date.now() / 1000) {
-        return true;
-      } else return false;
+        return true
+      } else return false
     } catch (err) {
-      return false;
+      return false
     }
   }
 
   getToken() {
-    return localStorage.getItem('id_token');
+    return localStorage.getItem("id_token")
   }
 
-  login(idToken) {
-    localStorage.setItem('id_token', idToken);
-    window.location.assign('/');
+  signIn(idToken) {
+    localStorage.setItem("id_token", idToken)
+    window.location.assign("/")
   }
 
   logout() {
-    localStorage.removeItem('id_token');
-    window.location.assign('/');
+    localStorage.removeItem("id_token")
+    window.location.assign("/")
   }
 }
 
-export default new Auth();
+export default new AuthService()

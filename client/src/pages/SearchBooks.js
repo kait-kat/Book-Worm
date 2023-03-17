@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useMutation } from "@apollo/client"
 import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
 
-import Auth from '../utils/auth.js.js';
-import { saveBook, searchGoogleBooks } from '../utils/API.js.js';
+import Auth from '../utils/auth.js';
+import { searchGoogleBooks } from "../utils/API"
+import { SAVE_BOOK } from "../gql/mutations"
 import { saveBookIds, getSavedBookIds } from '../utils/localStorage.js';
 
 const SearchBooks = () => {
@@ -13,6 +15,8 @@ const SearchBooks = () => {
   useEffect(() => {
     return () => saveBookIds(savedBookIds);
   });
+
+  const [saveBook, { error, data }] = useMutation(SAVE_BOOK)
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -55,12 +59,12 @@ const SearchBooks = () => {
     }
 
     try {
-      const response = await saveBook(bookToSave, token);
-
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
-
+      const { data } = await saveBook({
+        variables: {
+          ...bookToSave,
+          username: Auth.getProfile().data.username,
+        },
+      })
       setSavedBookIds([...savedBookIds, bookToSave.bookId]);
     } catch (err) {
       console.error(err);
