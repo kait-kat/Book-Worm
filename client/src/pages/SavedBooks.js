@@ -1,63 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap';
-
-import { getMe, deleteBook } from '../utils/API.js';
+import { useQuery, useMutation } from "@apollo/client"
+import { GET_USER } from "../gql/queries"
+import { DELETE_BOOK } from "../gql/mutations"
 import Auth from '../utils/auth.js';
 import { removeBookId } from '../utils/localStorage.js';
 
 const SavedBooks = () => {
-  const [userData, setUserData] = useState({});
-  const userDataLength = Object.keys(userData).length;
+  const username = Auth.getProfile().data.username
+  const { loading, data } = useQuery(GET_USER, {
+    variables: { username },
+  })
+  const userData = data?.user || {}
 
-  useEffect(() => {
-    const getUserData = async () => {
-      try {
-        const token = Auth.loggedIn() ? Auth.getToken() : null;
-
-        if (!token) {
-          return false;
-        }
-
-        const response = await getMe(token);
-
-        if (!response.ok) {
-          throw new Error('something went wrong!');
-        }
-
-        const user = await response.json();
-        setUserData(user);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    getUserData();
-  }, [userDataLength]);
-
+  const [deleteBook] = useMutation(DELETE_BOOK)
   const handleDeleteBook = async (bookId) => {
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
-
-    if (!token) {
-      return false;
-    }
-
     try {
-      const response = await deleteBook(bookId, token);
-
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
-
-      const updatedUser = await response.json();
-      setUserData(updatedUser);
-      removeBookId(bookId);
+      const { data } = await deleteBook({
+        variables: { username, bookId },
+      })
+      removeBookId(bookId)
     } catch (err) {
-      console.error(err);
+      console.error(err)
     }
-  };
-
-  if (!userDataLength) {
-    return <h2>LOADING...</h2>;
+  }
+  if (loading) {
+    return <h2>Loading...</h2>
   }
 
   return (

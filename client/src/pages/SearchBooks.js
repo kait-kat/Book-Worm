@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
 
-import Auth from '../utils/auth.js';
-import { saveBook, searchGoogleBooks } from '../utils/API.js';
+import Auth from '../utils/auth.js.js';
+import { saveBook, searchGoogleBooks } from '../utils/API.js.js';
 import { saveBookIds, getSavedBookIds } from '../utils/localStorage.js';
 
 const SearchBooks = () => {
