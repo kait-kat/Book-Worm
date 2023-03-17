@@ -1,4 +1,5 @@
-const router = require('express').Router();
+const userRouter = require('express').Router();
+const { authMiddleware } = require("../../utils/auth")
 const {
   createUser,
   getSingleUser,
@@ -6,14 +7,20 @@ const {
   deleteBook,
   login,
 } = require('../../controllers/user-controller');
-const { authMiddleware } = require('../../utils/auth.js');
 
-router.route('/').post(createUser).put(authMiddleware, saveBook);
+userRouter
+  .post("/", createUser)
 
-router.route('/login').post(login);
+userRouter
+  .get("/me", authMiddleware, getSingleUser)
 
-router.route('/me').get(authMiddleware, getSingleUser);
+userRouter
+  .post("/login", login)
 
-router.route('/books/:bookId').delete(authMiddleware, deleteBook);
+userRouter
+  .put("/", authMiddleware, saveBook)
 
-module.exports = router;
+userRouter
+  .delete("/books/:bookId", authMiddleware, deleteBook)
+
+module.exports = userRouter;
