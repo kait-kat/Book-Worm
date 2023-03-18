@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/kait-kat/Book-Worm#readme",
   "dependencies": {
+    "@apollo/client": "^3.7.10",
     "apollo": "^2.11.1",
     "apollo-server-express": "^3.12.0",
     "bcrypt": "^5.1.0",
