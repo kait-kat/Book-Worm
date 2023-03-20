@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useMutation } from "@apollo/client"
-import { Button, Card, Col, Container, Form, Row } from "react-bootstrap"
+import { Jumbotron, Button, Card, Col, Container, Form, Row } from "react-bootstrap"
 
 import Auth from '../utils/auth.js';
 import { searchGoogleBooks } from "../utils/API"
@@ -68,7 +68,7 @@ const SearchBooks = () => {
 
   return (
     <>
-      <div className="text-light bg-dark pt-5">
+      <Jumbotron fluid className="text-light bg-dark pt-5">
         <Container>
           <h1>Search for Books!</h1>
           <Form onSubmit={handleFormSubmit}>
@@ -91,7 +91,7 @@ const SearchBooks = () => {
             </Row>
           </Form>
         </Container>
-      </div>
+      </Jumbotron>
 
       <Container>
         <h2>

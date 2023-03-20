@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Card, Col, Container, Row } from "react-bootstrap"
+import { Jumbotron, Button, Card, Col, Container, Row } from "react-bootstrap"
 import { useQuery, useMutation } from "@apollo/client"
 import { GET_USER } from "../gql/queries"
 import { DELETE_BOOK } from "../gql/mutations"
@@ -30,11 +30,11 @@ const SavedBooks = () => {
 
   return (
     <>
-      <div className="text-light bg-dark p-5">
+      <Jumbotron fluid className="text-light bg-dark p-5">
         <Container>
           <h1>Viewing saved books!</h1>
         </Container>
-      </div>
+      </Jumbotron>
       <Container>
         <h2 className="pt-5">
           {userData.savedBooks.length
