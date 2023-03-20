@@ -12,7 +12,7 @@ mongoose.connect(process.env.MONGODB_URI || `mongodb://localhost/${db}`,
 		if (err) {
 			console.error(err)
 		} else {
-			console.log(`Connected to the ${db} database! ✅`)
+			console.log(`Connected to the ${db} database!`)
 		}
 	},
 )

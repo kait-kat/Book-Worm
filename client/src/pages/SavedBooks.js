@@ -1,5 +1,5 @@
 import React from 'react';
-import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap';
+import { Button, Card, Col, Container, Row } from "react-bootstrap"
 import { useQuery, useMutation } from "@apollo/client"
 import { GET_USER } from "../gql/queries"
 import { DELETE_BOOK } from "../gql/mutations"
@@ -30,37 +30,39 @@ const SavedBooks = () => {
 
   return (
     <>
-      <Jumbotron fluid className='text-light bg-dark'>
+      <div className="text-light bg-dark p-5">
         <Container>
-          <h1>Saved books</h1>
+          <h1>Viewing saved books!</h1>
         </Container>
-      </Jumbotron>
+      </div>
       <Container>
-        <h2>
+        <h2 className="pt-5">
           {userData.savedBooks.length
-            ? `Viewing ${userData.savedBooks.length} saved ${userData.savedBooks.length === 1 ? 'book' : 'books'}:`
-            : ' No saved books'}
+            ? `Viewing ${userData.savedBooks.length} saved ${userData.savedBooks.length === 1 ? "book" : "books"}:`
+            : "You have no saved books!"}
         </h2>
-        <CardColumns>
-          {userData.savedBooks.map((book) => {
+        <Row>
+          {userData.savedBooks.map((book, index) => {
             return (
-              <Card key={book.bookId} border='dark'>
-                {book.image ? <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='top' /> : null}
-                <Card.Body>
-                  <Card.Title>{book.title}</Card.Title>
-                  <p className='small'>Authors: {book.authors}</p>
-                  <Card.Text>{book.description}</Card.Text>
-                  <Button className='btn-block btn-danger' onClick={() => handleDeleteBook(book.bookId)}>
-                    Delete this Book!
-                  </Button>
-                </Card.Body>
-              </Card>
-            );
+              <Col key={index} md="4">
+                <Card key={book.bookId} border="dark">
+                  {book.image ? <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant="top" /> : null}
+                  <Card.Body>
+                    <Card.Title>{book.title}</Card.Title>
+                    <p className="small">Authors: {book.authors}</p>
+                    <Card.Text>{book.description}</Card.Text>
+                    <Button className="btn-block btn-danger" onClick={() => handleDeleteBook(book.bookId)}>
+                      Delete this Book!
+                    </Button>
+                  </Card.Body>
+                </Card>
+              </Col>
+            )
           })}
-        </CardColumns>
+        </Row>
       </Container>
     </>
-  );
-};
+  )
+}
 
-export default SavedBooks;
+export default SavedBooks
